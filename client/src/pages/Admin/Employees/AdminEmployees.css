@@ -1,0 +1,224 @@
+/* ══ Admin Employees ══ */
+.admin-employees {
+    padding: 4px 0;
+}
+
+.ae-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.ae-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #3d2810;
+}
+
+.ae-add-btn {
+    padding: 10px 20px;
+    background: var(--gold, #f0b429);
+    color: var(--brown, #3d2810);
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: var(--sans, sans-serif);
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+}
+
+.ae-add-btn:hover { opacity: 0.88; transform: scale(1.02); }
+
+.ae-loading, .ae-error, .ae-empty {
+    text-align: center;
+    padding: 60px 20px;
+    font-size: 16px;
+    color: #777;
+}
+
+.ae-error { color: #e53e3e; }
+
+/* ══ Table ══ */
+.ae-table-wrap {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+.ae-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.ae-table th {
+    background: #f7f4ef;
+    padding: 13px 16px;
+    text-align: right;
+    font-weight: 700;
+    color: #3d2810;
+    border-bottom: 2px solid #ece6dc;
+}
+
+.ae-row td {
+    padding: 13px 16px;
+    border-bottom: 1px solid #f0ece5;
+    color: #333;
+    vertical-align: middle;
+}
+
+.ae-row:last-child td { border-bottom: none; }
+.ae-row:hover td { background: #fdf9f4; }
+
+.ae-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.ae-avatar {
+    font-size: 18px;
+}
+
+/* ══ Badges ══ */
+.ae-badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.ae-badge--active { background: #d1fae5; color: #065f46; }
+.ae-badge--zero   { background: #f3f4f6; color: #6b7280; }
+
+/* ══ Action buttons ══ */
+.ae-btn {
+    padding: 7px 14px;
+    border-radius: 8px;
+    border: none;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: var(--sans, sans-serif);
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+
+.ae-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.ae-btn--remove { background: #fee2e2; color: #991b1b; }
+.ae-btn--remove:hover:not(:disabled) { background: #fecaca; }
+
+.ae-btn--cancel { background: #f3f4f6; color: #444; }
+.ae-btn--cancel:hover:not(:disabled) { background: #e5e7eb; }
+
+.ae-btn--save {
+    background: var(--gold, #f0b429);
+    color: var(--brown, #3d2810);
+}
+.ae-btn--save:hover:not(:disabled) { opacity: 0.88; }
+
+/* ══ Modal ══ */
+.ae-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.ae-modal {
+    background: #fff;
+    border-radius: 18px;
+    padding: 32px;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    animation: aeModalIn 0.2s ease-out;
+}
+
+@keyframes aeModalIn {
+    from { transform: scale(0.94); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+}
+
+.ae-modal__title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #1a3d2b;
+    margin-bottom: 20px;
+}
+
+.ae-form-error {
+    background: #fee2e2;
+    color: #991b1b;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-bottom: 16px;
+}
+
+.ae-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.ae-label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+}
+
+.ae-input {
+    padding: 10px 12px;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: var(--sans, sans-serif);
+    transition: border-color 0.15s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ae-input:focus {
+    outline: none;
+    border-color: var(--gold, #f0b429);
+}
+
+.ae-pass-wrap {
+    position: relative;
+}
+
+.ae-pass-wrap .ae-input {
+    padding-left: 40px;
+}
+
+.ae-pass-toggle {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0;
+}
+
+.ae-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 8px;
+}

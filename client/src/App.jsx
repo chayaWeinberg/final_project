@@ -2,11 +2,10 @@ import { useState } from 'react'
 import './App.css'
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./routes/AppRoutes";
+import { getUser } from "./utils/authStorage";
 
 function App() {
-    const [user, setUser] = useState(
-        JSON.parse(localStorage.getItem('user'))
-    );
+    const [user, setUser] = useState(getUser());
 
     return (
         <BrowserRouter>

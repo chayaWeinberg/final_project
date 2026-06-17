@@ -1,0 +1,128 @@
+/* ══ Admin Shell ══ */
+.admin-shell {
+    display: flex;
+    min-height: 100vh;
+    background: #f7f4ef;
+    direction: rtl;
+}
+
+/* ══ Sidebar ══ */
+.admin-sidebar {
+    width: 220px;
+    min-width: 220px;
+    background: var(--brown);
+    display: flex;
+    flex-direction: column;
+    padding: 24px 0 16px;
+    gap: 8px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.admin-sidebar__brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 0 20px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.admin-sidebar__avatar {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: drop-shadow(0 4px 12px rgba(240,180,41,0.35));
+    animation: adminLogoBob 3s ease-in-out infinite;
+}
+
+@keyframes adminLogoBob {
+    0%,100% { transform: translateY(0) rotate(-1.5deg); }
+    50%      { transform: translateY(-6px) rotate(1.5deg); }
+}
+
+.admin-sidebar__title {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--gold);
+    font-family: var(--display);
+}
+
+.admin-sidebar__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 12px;
+    flex: 1;
+}
+
+.admin-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background 0.15s, color 0.15s;
+}
+
+.admin-nav-item:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+.admin-nav-item--active {
+    background: var(--gold);
+    color: var(--brown);
+}
+
+.admin-nav-item__icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    flex-shrink: 0;
+    opacity: 0.85;
+    transition: opacity 0.15s, transform 0.15s;
+}
+.admin-nav-item:hover .admin-nav-item__icon {
+    opacity: 1;
+    transform: scale(1.1);
+}
+.admin-nav-item--active .admin-nav-item__icon {
+    opacity: 1;
+}
+
+.admin-sidebar__logout {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 12px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.65);
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--sans);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.admin-sidebar__logout:hover {
+    background: rgba(220,38,38,0.2);
+    color: #fca5a5;
+    border-color: rgba(220,38,38,0.4);
+}
+
+/* ══ Main Content ══ */
+.admin-main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 32px;
+}

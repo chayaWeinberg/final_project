@@ -30,7 +30,7 @@ function Register() {
                     onBack={handleBack}
                 />
             )}
-             <Link to="/login">
+             <Link to="/login" className="auth-link">
                 כבר יש לך חשבון? להתחברות
             </Link>
         </>

@@ -17,7 +17,7 @@ function createRefreshToken() {
 
 async function saveRefreshToken(userId, token) {
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-    await db.promise().query(
+    await db.query(
         'INSERT INTO refresh_tokens (user_id, token, expires_at) VALUES (?, ?, ?)',
         [userId, token, expiresAt]
     );
@@ -29,8 +29,11 @@ async function login(data) {
 
     if (!email || !password) throw new Error('Missing email or password');
 
-    const [rows] = await db.promise().query(
-        'SELECT * FROM users WHERE email = ?',
+    const [rows] = await db.query(
+        `SELECT u.id, u.name, u.role, c.password_hash
+         FROM users u
+         JOIN user_credentials c ON u.id = c.user_id
+         WHERE u.email = ?`,
         [email]
     );
 
@@ -59,26 +62,31 @@ async function register(data) {
     const { city, street, buildingNumber, floor, apartmentNumber } = data;
 
     if (!email || !password || !name) throw new Error('Missing required fields');
-    if (password.length < 8) throw new Error('Password must contain at least 8 characters');
+    if (password.length < 8) throw new Error('Password must be at least 8 characters');
 
-    const [existing] = await db.promise().query(
+    const [existing] = await db.query(
         'SELECT id FROM users WHERE email = ?',
         [email]
     );
     if (existing.length > 0) throw new Error('User already exists');
 
     const hashed = await bcrypt.hash(password, 10);
-    const connection = await db.promise().getConnection();
+    const connection = await db.getConnection();
 
     try {
         await connection.beginTransaction();
 
         const [userResult] = await connection.query(
-            'INSERT INTO users (email, password_hash, name, phone) VALUES (?, ?, ?, ?)',
-            [email, hashed, name, phone]
+            'INSERT INTO users (email, name, phone) VALUES (?, ?, ?)',
+            [email, name, phone]
         );
 
         const userId = userResult.insertId;
+
+        await connection.query(
+            'INSERT INTO user_credentials (user_id, password_hash) VALUES (?, ?)',
+            [userId, hashed]
+        );
 
         await connection.query(
             'INSERT INTO addresses (user_id, city, street, building_number, floor, apartment_number) VALUES (?, ?, ?, ?, ?, ?)',
@@ -105,7 +113,7 @@ async function register(data) {
 async function refresh(token) {
     if (!token) throw Object.assign(new Error('No refresh token'), { status: 401 });
 
-    const [rows] = await db.promise().query(
+    const [rows] = await db.query(
         'SELECT * FROM refresh_tokens WHERE token = ? AND expires_at > NOW()',
         [token]
     );
@@ -114,7 +122,7 @@ async function refresh(token) {
 
     const { user_id } = rows[0];
 
-    const [users] = await db.promise().query(
+    const [users] = await db.query(
         'SELECT id, role FROM users WHERE id = ?',
         [user_id]
     );
@@ -125,7 +133,7 @@ async function refresh(token) {
 
 async function logout(token) {
     if (token) {
-        await db.promise().query(
+        await db.query(
             'DELETE FROM refresh_tokens WHERE token = ?',
             [token]
         );

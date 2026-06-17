@@ -1,18 +1,18 @@
-const baseUrl = 'http://localhost:3000';
+const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
-function getAuthHeader() {
-    const token = localStorage.getItem('token');
-    return token ? { Authorization: `Bearer ${token}` } : {};
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
 }
 
 async function request(url, options = {}, retry = true) {
-
     const res = await fetch(baseUrl + url, {
         ...options,
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
-            ...getAuthHeader(),
             ...options.headers
         }
     });
@@ -42,18 +42,16 @@ async function tryRefresh() {
             method: 'POST',
             credentials: 'include'
         });
-        if (!res.ok) return false;
-        const data = await res.json();
-        localStorage.setItem('token', data.token);
-        return true;
+        return res.ok;
     } catch {
         return false;
     }
 }
 
 function clearAuth() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    document.cookie = 'refreshToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    document.cookie = 'user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
 }
 
 export default {

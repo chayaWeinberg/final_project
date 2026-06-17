@@ -1,0 +1,176 @@
+/* ══ Admin Orders ══ */
+.admin-orders {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 1100px;
+}
+
+.admin-orders__title {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--brown);
+}
+
+/* ══ Filters ══ */
+.ao-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ao-filter {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 99px;
+    border: 1.5px solid var(--cream-dark);
+    background: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: var(--sans);
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.ao-filter:hover { border-color: var(--gold); color: var(--brown); }
+
+.ao-filter--active {
+    background: var(--brown);
+    border-color: var(--brown);
+    color: #fff;
+}
+
+.ao-filter__count {
+    background: rgba(255,255,255,0.25);
+    border-radius: 99px;
+    padding: 1px 7px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.ao-filter--active .ao-filter__count {
+    background: rgba(255,255,255,0.2);
+}
+
+/* ══ Table ══ */
+.ao-table-wrap {
+    background: #fff;
+    border-radius: 18px;
+    border: 1.5px solid var(--cream-dark);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.ao-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.ao-table th {
+    text-align: right;
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    background: #faf6f0;
+    border-bottom: 1.5px solid var(--cream-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.ao-row td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f5efe6;
+    color: var(--text);
+    vertical-align: middle;
+}
+
+.ao-id { font-weight: 700; color: var(--brown-light); }
+.ao-price { font-weight: 700; }
+.ao-date { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+
+/* ══ Status badge / select — משתמש ב-global status-badge מ-index.css ══ */
+
+/* ══ Expand button ══ */
+.ao-expand-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--text-muted);
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background 0.15s;
+}
+
+.ao-expand-btn:hover { background: var(--cream-dark); }
+
+/* ══ Expanded row ══ */
+.ao-expanded td {
+    padding: 0;
+    background: #faf6f0;
+}
+
+.ao-details {
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ao-details__address {
+    font-size: 13px;
+    color: var(--text-light);
+}
+
+.ao-items-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.ao-items-table th {
+    text-align: right;
+    padding: 7px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--cream-dark);
+    text-transform: uppercase;
+}
+
+.ao-items-table td {
+    padding: 7px 12px;
+    border-bottom: 1px solid #ede8e0;
+    color: var(--text);
+}
+
+.ao-notes { color: var(--text-muted); font-style: italic; }
+
+/* ══ Empty / Loading ══ */
+.ao-empty, .ao-loading, .ao-error {
+    text-align: center;
+    padding: 60px;
+    font-size: 15px;
+    color: var(--text-muted);
+    background: #fff;
+    border-radius: 18px;
+    border: 1.5px solid var(--cream-dark);
+}
+
+/* ══ Employee column ══ */
+.ao-employee {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a6b3a;
+    white-space: nowrap;
+}
+
+.ao-employee--none {
+    color: #bbb;
+    font-weight: 400;
+}
