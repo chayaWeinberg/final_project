@@ -43,7 +43,6 @@ export default function Menu() {
   }, []);
 
   const existingCats = CATEGORY_ORDER.filter(c => items.some(i => i.category === c));
-  const categories = ['הכל', 'להיטים', ...existingCats];
 
   const filtered = items.filter(item => {
     if (activeCategory === 'הכל') return true;
