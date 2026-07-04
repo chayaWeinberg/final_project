@@ -1,8 +1,6 @@
 const db = require('../config/db');
 
-/**
- * Get all pending orders (not yet taken by anyone).
- */
+
 async function getPendingOrders() {
     const [orders] = await db.query(
         `SELECT o.*, u.name AS customer_name, u.email AS customer_email
@@ -26,10 +24,7 @@ async function getPendingOrders() {
     return orders;
 }
 
-/**
- * Get all active orders assigned to a specific employee.
- * Active = confirmed / preparing / ready
- */
+
 async function getMyActiveOrders(employeeId) {
     const [orders] = await db.query(
         `SELECT o.*, u.name AS customer_name, u.email AS customer_email
@@ -54,9 +49,7 @@ async function getMyActiveOrders(employeeId) {
     return orders;
 }
 
-/**
- * Get order history handled by this employee (delivered / cancelled).
- */
+
 async function getMyOrderHistory(employeeId) {
     const [orders] = await db.query(
         `SELECT o.*, u.name AS customer_name
@@ -82,10 +75,7 @@ async function getMyOrderHistory(employeeId) {
     return orders;
 }
 
-/**
- * Take a pending order — assign to employee and move to 'confirmed'.
- * Fails if order is already taken.
- */
+
 async function takeOrder(orderId, employeeId) {
     const connection = await db.getConnection();
     try {
@@ -128,10 +118,6 @@ async function takeOrder(orderId, employeeId) {
     }
 }
 
-/**
- * Update order status — employee can only advance their own orders
- * through the allowed transitions.
- */
 const ALLOWED_TRANSITIONS = {
     confirmed: ['preparing', 'cancelled'],
     preparing: ['ready', 'cancelled'],
@@ -168,9 +154,7 @@ async function updateMyOrderStatus(orderId, employeeId, newStatus) {
     return { order_id: orderId, status: newStatus };
 }
 
-/**
- * Employee daily stats.
- */
+
 async function getMyStats(employeeId) {
     const [[{ today_handled }]] = await db.query(
         `SELECT COUNT(*) AS today_handled

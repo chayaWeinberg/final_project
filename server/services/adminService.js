@@ -1,6 +1,5 @@
 const db = require('../config/db');
 
-// Top items by order_count (for pie chart)
 async function getTopItems(limit = 10) {
     const [rows] = await db.query(
         `SELECT id, name, category, order_count
@@ -12,7 +11,6 @@ async function getTopItems(limit = 10) {
     return rows;
 }
 
-// Orders count grouped by status
 async function getOrdersByStatus() {
     const [rows] = await db.query(
         `SELECT status, COUNT(*) AS count
@@ -22,7 +20,6 @@ async function getOrdersByStatus() {
     return rows;
 }
 
-// Summary KPIs
 async function getSummary() {
     const [[{ total_orders }]] = await db.query(
         `SELECT COUNT(*) AS total_orders FROM orders`

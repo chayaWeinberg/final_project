@@ -1,0 +1,8 @@
+node_modules/
+.env
+CREDENTIALS.md
+dist/
+dist-ssr/
+*.local
+*.log
+.DS_Store

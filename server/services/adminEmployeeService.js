@@ -3,9 +3,7 @@ const bcrypt = require('bcrypt');
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/**
- * Create a new employee account (admin only).
- */
+
 async function createEmployee(data) {
     const { email, password, name, phone } = data;
 
@@ -58,9 +56,7 @@ async function createEmployee(data) {
     }
 }
 
-/**
- * Get all employees with basic stats.
- */
+
 async function getEmployees() {
     const [employees] = await db.query(
         `SELECT u.id, u.email, u.name, u.phone, u.created_at,
@@ -76,10 +72,7 @@ async function getEmployees() {
     return employees;
 }
 
-/**
- * Deactivate (soft-delete) an employee by setting their role back to 'customer'.
- * We don't hard-delete to preserve order history.
- */
+
 async function deactivateEmployee(employeeId) {
     const [rows] = await db.query(
         `SELECT id, role FROM users WHERE id = ? AND role = 'employee'`,
@@ -98,9 +91,7 @@ async function deactivateEmployee(employeeId) {
     return { message: 'העובד הוסר בהצלחה' };
 }
 
-/**
- * Reactivate an employee (set role back to 'employee').
- */
+
 async function reactivateEmployee(employeeId) {
     const [rows] = await db.query(
         `SELECT id, role FROM users WHERE id = ?`,

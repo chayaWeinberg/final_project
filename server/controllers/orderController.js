@@ -3,7 +3,7 @@ const orderService = require('../services/orderService');
 // Create a new order
 async function createOrder(req, res, next) {
     try {
-        const user_id = req.user.id; // From auth middleware
+        const user_id = req.user.id; 
         const { items, delivery_address, phone } = req.body;
 
         if (!items || !Array.isArray(items) || items.length === 0) {
